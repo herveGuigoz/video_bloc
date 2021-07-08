@@ -47,6 +47,8 @@ class VideoBloc extends Bloc<ScopedVideo> with VideoMapperMixin {
       if (position != null) await seekTo(position);
       if (autoPlay) await play();
       controller.addListener(_listen);
+      // _listen() will update state on first frame if play() was called.
+      if (!autoPlay) mapControllerValueToState();
     } catch (error) {
       emit(ScopedVideo.error(controller));
     }

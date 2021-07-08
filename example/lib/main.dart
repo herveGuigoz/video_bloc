@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:video_bloc/video_bloc.dart';
 
 const _kVideoSource = [
-  'https://www.ngtvexperience.com/uploads/ec1_sessions/60e63323cc5d4172041907/video0.mp4',
-  'https://www.ngtvexperience.com/uploads/ec1_sessions/60e617cef27e3208681551/video0.mp4'
+  'https://clip-video-ngtv.s3.eu-west-3.amazonaws.com/35001_60907a857fc97985857045',
+  'https://clip-video-ngtv.s3.eu-west-3.amazonaws.com/35001_6078a94859012373041229'
 ];
 
 void main() {
@@ -42,7 +42,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return VideoScope(
       source: _source,
-      autoPlay: true,
       child: Scaffold(
         appBar: AppBar(title: const Text('Home page')),
         body: Column(

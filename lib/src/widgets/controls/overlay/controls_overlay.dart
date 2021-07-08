@@ -9,7 +9,12 @@ import 'overlay_bloc.dart';
 class ControlsOverlay extends StatefulWidget {
   const ControlsOverlay({
     Key? key,
+    this.backdropColor = Colors.black45,
+    this.builder,
   }) : super(key: key);
+
+  final Color backdropColor;
+  final WidgetBuilder? builder;
 
   @override
   _ControlsOverlayState createState() => _ControlsOverlayState();
@@ -31,6 +36,8 @@ class _ControlsOverlayState extends State<ControlsOverlay> {
 
   @override
   Widget build(BuildContext context) {
+    final child = widget.builder?.call(context) ?? const _AnimatedPlayPause();
+
     return StreamBuilder<bool>(
       stream: _bloc.stream,
       initialData: _bloc.initialState,
@@ -44,11 +51,8 @@ class _ControlsOverlayState extends State<ControlsOverlay> {
             child: Container(
               constraints: BoxConstraints.expand(),
               alignment: Alignment.center,
-              color: Colors.black45,
-              child: IgnorePointer(
-                ignoring: !visible,
-                child: const _AnimatedPlayPause(),
-              ),
+              color: widget.backdropColor,
+              child: !visible ? null : child,
             ),
           ),
         );
@@ -72,7 +76,7 @@ class _AnimatedPlayPause extends StatelessWidget {
       child: VideoConsumer<VideoStatus>(
         select: (video) => video.status,
         builder: (context, status) => status.maybeWhen(
-          done: () => const Icon(Icons.replay),
+          done: () => Icon(Icons.replay, color: color, size: 50),
           buffering: () => CircularProgressIndicator(
             strokeWidth: 1.0,
             valueColor: AlwaysStoppedAnimation<Color>(color),
