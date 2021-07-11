@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_bloc/src/core/bloc.dart';
 import 'package:video_bloc/src/models/models.dart';
+import 'package:video_bloc/src/widgets/controls/loading.dart';
 
 import '../../consumer.dart';
 import '../animated_play_pause.dart';
@@ -10,11 +11,15 @@ class ControlsOverlay extends StatefulWidget {
   const ControlsOverlay({
     Key? key,
     this.backdropColor = Colors.black45,
-    this.builder,
+    this.child,
   }) : super(key: key);
 
+  /// Overlay color
   final Color backdropColor;
-  final WidgetBuilder? builder;
+
+  /// Widget to render when overlay is visible.
+  /// Default to [AnimatedPlayPause]
+  final Widget? child;
 
   @override
   _ControlsOverlayState createState() => _ControlsOverlayState();
@@ -36,7 +41,7 @@ class _ControlsOverlayState extends State<ControlsOverlay> {
 
   @override
   Widget build(BuildContext context) {
-    final child = widget.builder?.call(context) ?? const _AnimatedPlayPause();
+    final child = widget.child ?? const _AnimatedPlayPause();
 
     return StreamBuilder<bool>(
       stream: _bloc.stream,
@@ -77,10 +82,7 @@ class _AnimatedPlayPause extends StatelessWidget {
         select: (video) => video.status,
         builder: (context, status) => status.maybeWhen(
           done: () => Icon(Icons.replay, color: color, size: 50),
-          buffering: () => CircularProgressIndicator(
-            strokeWidth: 1.0,
-            valueColor: AlwaysStoppedAnimation<Color>(color),
-          ),
+          buffering: () => Loading(),
           orElse: () => AnimatedPlayPause(status: status, color: color),
         ),
       ),

@@ -6,7 +6,7 @@ import 'package:video_bloc/src/models/models.dart';
 const _kDuration = Duration(seconds: 2);
 
 class OverlayBloc extends Bloc<bool> {
-  OverlayBloc(this.video) : super(initialState: !video.state.isPlaying) {
+  OverlayBloc(this.video) : super(initialState: !video.state.status.isPlaying) {
     _subscription = video.select((state) => state.status).listen(eventHandler);
   }
 
@@ -14,7 +14,8 @@ class OverlayBloc extends Bloc<bool> {
   StreamSubscription<VideoStatus>? _subscription;
   Timer? _timer;
 
-  bool get _isPLaying => video.state.isPlaying;
+  bool get _isPLaying => video.state.status.isPlaying;
+  bool get _hasError => video.state.status.hasError;
   bool get visible => state;
   set visible(bool value) {
     if (value == state) return;
@@ -23,12 +24,12 @@ class OverlayBloc extends Bloc<bool> {
 
   void eventHandler(VideoStatus event) {
     if (!visible && !event.isPlaying) visible = true;
-    if (visible && event.isPlaying) visible = false;
+    if (visible && (event.isPlaying || event.hasError)) visible = false;
     if (visible && !event.isPlaying) _timer?.cancel();
   }
 
   void onTap() {
-    if (!_isPLaying) return;
+    if (!_isPLaying || _hasError) return;
 
     if (!visible) {
       visible = true;

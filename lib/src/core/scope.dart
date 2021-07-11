@@ -28,7 +28,9 @@ class _VideoScopeState extends State<VideoScope> {
     super.initState();
     _bloc = VideoBloc(
       controller: VideoPlayerController.network(widget.source),
-    )..initialize(autoPlay: widget.autoPlay);
+    )..initialize().then((_) {
+        if (widget.autoPlay) _bloc.play();
+      });
   }
 
   @override
@@ -48,7 +50,6 @@ class _VideoScopeState extends State<VideoScope> {
   @override
   Widget build(BuildContext context) {
     return InheritedBloc(
-      dataSource: widget.source,
       bloc: _bloc,
       child: widget.child,
     );

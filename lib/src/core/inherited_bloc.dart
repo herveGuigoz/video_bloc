@@ -5,12 +5,10 @@ import 'bloc.dart';
 class InheritedBloc extends InheritedWidget {
   const InheritedBloc({
     Key? key,
-    required this.dataSource,
     required this.bloc,
     required Widget child,
   }) : super(key: key, child: child);
 
-  final String dataSource;
   final VideoBloc bloc;
 
   static InheritedBloc of(BuildContext context) {

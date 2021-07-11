@@ -17,8 +17,8 @@ typedef Selector<T, S> = S Function(T state);
 /// Wrapper around [VideoPlayerController] using Bloc pattern
 class VideoBloc extends Bloc<ScopedVideo> with VideoMapperMixin {
   VideoBloc({
-    required this.controller,
-  }) : super(initialState: ScopedVideo.uninitialized(controller));
+    required VideoPlayerController controller,
+  }) : super(initialState: ScopedVideo(controller));
 
   static VideoObserver observer = VideoObserver();
   static VideoBloc of(BuildContext context) => InheritedBloc.of(context).bloc;
@@ -26,7 +26,7 @@ class VideoBloc extends Bloc<ScopedVideo> with VideoMapperMixin {
   bool _disposed = false;
 
   @override
-  VideoPlayerController controller;
+  VideoPlayerController get controller => state.controller;
 
   String get dataSource => controller.dataSource;
 
@@ -34,28 +34,28 @@ class VideoBloc extends Bloc<ScopedVideo> with VideoMapperMixin {
     final oldValue = state.controller;
     await oldValue.pause();
     oldValue.removeListener(_listen);
-    controller = VideoPlayerController.network(value);
-    emit(state.copyWith(controller: controller, status: status));
-    await initialize(autoPlay: true, position: oldValue.value.position);
+    emit(state.copyWith(
+      controller: VideoPlayerController.network(value),
+      status: VideoStatus.initial(),
+    ));
+    await initialize(position: oldValue.value.position);
+    await play();
     oldValue.dispose();
   }
 
   // Build platform video player and start listening to it.
-  Future<void> initialize({required bool autoPlay, Duration? position}) async {
+  Future<void> initialize({Duration? position}) async {
     try {
       await controller.initialize();
       if (position != null) await seekTo(position);
-      if (autoPlay) await play();
       controller.addListener(_listen);
-      // _listen() will update state on first frame if play() was called.
-      if (!autoPlay) mapControllerValueToState();
     } catch (error) {
-      emit(ScopedVideo.error(controller));
+      emit(state.copyWith(status: VideoStatus.error()));
     }
   }
 
   void _listen() {
-    if (!_disposed && frames.duration.inSeconds > 1) {
+    if (!_disposed && controller.value.duration.inSeconds > 1) {
       mapControllerValueToState();
     }
   }
@@ -79,11 +79,11 @@ class VideoBloc extends Bloc<ScopedVideo> with VideoMapperMixin {
   /// Either play, pause or replay from the video's current status.
   Future<void> togglePlay() async {
     if (_disposed) return;
-    status.when(
+    status.maybeWhen(
       playing: () async => pause(),
       paused: () async => play(),
       done: () async => replay(),
-      buffering: () {},
+      orElse: () {},
     );
   }
 
@@ -95,7 +95,6 @@ class VideoBloc extends Bloc<ScopedVideo> with VideoMapperMixin {
 
   Future<void> seekTo(Duration position) async {
     if (_disposed) return;
-    assert(controller.value.isInitialized);
     await controller.seekTo(position);
   }
 
@@ -134,6 +133,7 @@ abstract class Bloc<S> {
   }
 
   Stream<T> select<T>(Selector<S, T> selector) async* {
+    assert(!_stateController.isClosed);
     T? previous;
     await for (var chunk in _stateController.stream) {
       T current = selector(chunk);

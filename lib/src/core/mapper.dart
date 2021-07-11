@@ -10,18 +10,18 @@ mixin VideoMapperMixin on Bloc<ScopedVideo> {
 
   @protected
   void mapControllerValueToState() {
-    if (!controller.value.isInitialized) {
-      emit(ScopedVideo.uninitialized(controller));
-    } else if (controller.value.hasError) {
-      emit(ScopedVideo.error(controller));
+    if (controller.value.hasError) {
+      emit(state.copyWith(status: VideoStatus.error()));
     } else {
-      emit(ScopedVideo.initialized(controller, status: status, frames: frames));
+      emit(state.copyWith(status: status, frames: frames));
     }
   }
 
   @protected
   VideoStatus get status {
-    if (!controller.value.isInitialized) return const VideoStatus.buffering();
+    if (!controller.value.isInitialized) {
+      return const VideoStatus.initial();
+    }
 
     final position = controller.value.position.inMilliseconds;
     final duration = controller.value.duration.inMilliseconds;

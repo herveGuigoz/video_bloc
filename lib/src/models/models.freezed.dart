@@ -16,33 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$ScopedVideoTearOff {
   const _$ScopedVideoTearOff();
 
-  _Uninitialized uninitialized(VideoPlayerController controller,
-      {VideoStatus status = const VideoStatus.buffering(),
+  _ScopedVideo call(VideoPlayerController controller,
+      {VideoStatus status = const VideoStatus.initial(),
       Frames frames = const Frames()}) {
-    return _Uninitialized(
+    return _ScopedVideo(
       controller,
-      status: status,
-      frames: frames,
-    );
-  }
-
-  _Initialized initialized(VideoPlayerController controller,
-      {VideoStatus status = const VideoStatus.buffering(),
-      Frames frames = const Frames()}) {
-    return _Initialized(
-      controller,
-      status: status,
-      frames: frames,
-    );
-  }
-
-  _Error error(VideoPlayerController controller,
-      {String? reason,
-      VideoStatus status = const VideoStatus.buffering(),
-      Frames frames = const Frames()}) {
-    return _Error(
-      controller,
-      reason: reason,
       status: status,
       frames: frames,
     );
@@ -57,49 +35,6 @@ mixin _$ScopedVideo {
   VideoPlayerController get controller => throw _privateConstructorUsedError;
   VideoStatus get status => throw _privateConstructorUsedError;
   Frames get frames => throw _privateConstructorUsedError;
-
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            VideoPlayerController controller, VideoStatus status, Frames frames)
-        uninitialized,
-    required TResult Function(
-            VideoPlayerController controller, VideoStatus status, Frames frames)
-        initialized,
-    required TResult Function(VideoPlayerController controller, String? reason,
-            VideoStatus status, Frames frames)
-        error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(VideoPlayerController controller, VideoStatus status,
-            Frames frames)?
-        uninitialized,
-    TResult Function(VideoPlayerController controller, VideoStatus status,
-            Frames frames)?
-        initialized,
-    TResult Function(VideoPlayerController controller, String? reason,
-            VideoStatus status, Frames frames)?
-        error,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Uninitialized value) uninitialized,
-    required TResult Function(_Initialized value) initialized,
-    required TResult Function(_Error value) error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Uninitialized value)? uninitialized,
-    TResult Function(_Initialized value)? initialized,
-    TResult Function(_Error value)? error,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ScopedVideoCopyWith<ScopedVideo> get copyWith =>
@@ -164,11 +99,11 @@ class _$ScopedVideoCopyWithImpl<$Res> implements $ScopedVideoCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$UninitializedCopyWith<$Res>
+abstract class _$ScopedVideoCopyWith<$Res>
     implements $ScopedVideoCopyWith<$Res> {
-  factory _$UninitializedCopyWith(
-          _Uninitialized value, $Res Function(_Uninitialized) then) =
-      __$UninitializedCopyWithImpl<$Res>;
+  factory _$ScopedVideoCopyWith(
+          _ScopedVideo value, $Res Function(_ScopedVideo) then) =
+      __$ScopedVideoCopyWithImpl<$Res>;
   @override
   $Res call(
       {VideoPlayerController controller, VideoStatus status, Frames frames});
@@ -180,14 +115,14 @@ abstract class _$UninitializedCopyWith<$Res>
 }
 
 /// @nodoc
-class __$UninitializedCopyWithImpl<$Res> extends _$ScopedVideoCopyWithImpl<$Res>
-    implements _$UninitializedCopyWith<$Res> {
-  __$UninitializedCopyWithImpl(
-      _Uninitialized _value, $Res Function(_Uninitialized) _then)
-      : super(_value, (v) => _then(v as _Uninitialized));
+class __$ScopedVideoCopyWithImpl<$Res> extends _$ScopedVideoCopyWithImpl<$Res>
+    implements _$ScopedVideoCopyWith<$Res> {
+  __$ScopedVideoCopyWithImpl(
+      _ScopedVideo _value, $Res Function(_ScopedVideo) _then)
+      : super(_value, (v) => _then(v as _ScopedVideo));
 
   @override
-  _Uninitialized get _value => super._value as _Uninitialized;
+  _ScopedVideo get _value => super._value as _ScopedVideo;
 
   @override
   $Res call({
@@ -195,7 +130,7 @@ class __$UninitializedCopyWithImpl<$Res> extends _$ScopedVideoCopyWithImpl<$Res>
     Object? status = freezed,
     Object? frames = freezed,
   }) {
-    return _then(_Uninitialized(
+    return _then(_ScopedVideo(
       controller == freezed
           ? _value.controller
           : controller // ignore: cast_nullable_to_non_nullable
@@ -214,15 +149,14 @@ class __$UninitializedCopyWithImpl<$Res> extends _$ScopedVideoCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Uninitialized extends _Uninitialized {
-  const _$_Uninitialized(this.controller,
-      {this.status = const VideoStatus.buffering(),
-      this.frames = const Frames()})
+class _$_ScopedVideo extends _ScopedVideo {
+  const _$_ScopedVideo(this.controller,
+      {this.status = const VideoStatus.initial(), this.frames = const Frames()})
       : super._();
 
   @override
   final VideoPlayerController controller;
-  @JsonKey(defaultValue: const VideoStatus.buffering())
+  @JsonKey(defaultValue: const VideoStatus.initial())
   @override
   final VideoStatus status;
   @JsonKey(defaultValue: const Frames())
@@ -231,13 +165,13 @@ class _$_Uninitialized extends _Uninitialized {
 
   @override
   String toString() {
-    return 'ScopedVideo.uninitialized(controller: $controller, status: $status, frames: $frames)';
+    return 'ScopedVideo(controller: $controller, status: $status, frames: $frames)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Uninitialized &&
+        (other is _ScopedVideo &&
             (identical(other.controller, controller) ||
                 const DeepCollectionEquality()
                     .equals(other.controller, controller)) &&
@@ -256,74 +190,14 @@ class _$_Uninitialized extends _Uninitialized {
 
   @JsonKey(ignore: true)
   @override
-  _$UninitializedCopyWith<_Uninitialized> get copyWith =>
-      __$UninitializedCopyWithImpl<_Uninitialized>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            VideoPlayerController controller, VideoStatus status, Frames frames)
-        uninitialized,
-    required TResult Function(
-            VideoPlayerController controller, VideoStatus status, Frames frames)
-        initialized,
-    required TResult Function(VideoPlayerController controller, String? reason,
-            VideoStatus status, Frames frames)
-        error,
-  }) {
-    return uninitialized(controller, status, frames);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(VideoPlayerController controller, VideoStatus status,
-            Frames frames)?
-        uninitialized,
-    TResult Function(VideoPlayerController controller, VideoStatus status,
-            Frames frames)?
-        initialized,
-    TResult Function(VideoPlayerController controller, String? reason,
-            VideoStatus status, Frames frames)?
-        error,
-    required TResult orElse(),
-  }) {
-    if (uninitialized != null) {
-      return uninitialized(controller, status, frames);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Uninitialized value) uninitialized,
-    required TResult Function(_Initialized value) initialized,
-    required TResult Function(_Error value) error,
-  }) {
-    return uninitialized(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Uninitialized value)? uninitialized,
-    TResult Function(_Initialized value)? initialized,
-    TResult Function(_Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (uninitialized != null) {
-      return uninitialized(this);
-    }
-    return orElse();
-  }
+  _$ScopedVideoCopyWith<_ScopedVideo> get copyWith =>
+      __$ScopedVideoCopyWithImpl<_ScopedVideo>(this, _$identity);
 }
 
-abstract class _Uninitialized extends ScopedVideo {
-  const factory _Uninitialized(VideoPlayerController controller,
-      {VideoStatus status, Frames frames}) = _$_Uninitialized;
-  const _Uninitialized._() : super._();
+abstract class _ScopedVideo extends ScopedVideo {
+  const factory _ScopedVideo(VideoPlayerController controller,
+      {VideoStatus status, Frames frames}) = _$_ScopedVideo;
+  const _ScopedVideo._() : super._();
 
   @override
   VideoPlayerController get controller => throw _privateConstructorUsedError;
@@ -333,372 +207,17 @@ abstract class _Uninitialized extends ScopedVideo {
   Frames get frames => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$UninitializedCopyWith<_Uninitialized> get copyWith =>
+  _$ScopedVideoCopyWith<_ScopedVideo> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$InitializedCopyWith<$Res>
-    implements $ScopedVideoCopyWith<$Res> {
-  factory _$InitializedCopyWith(
-          _Initialized value, $Res Function(_Initialized) then) =
-      __$InitializedCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {VideoPlayerController controller, VideoStatus status, Frames frames});
-
-  @override
-  $VideoStatusCopyWith<$Res> get status;
-  @override
-  $FramesCopyWith<$Res> get frames;
-}
-
-/// @nodoc
-class __$InitializedCopyWithImpl<$Res> extends _$ScopedVideoCopyWithImpl<$Res>
-    implements _$InitializedCopyWith<$Res> {
-  __$InitializedCopyWithImpl(
-      _Initialized _value, $Res Function(_Initialized) _then)
-      : super(_value, (v) => _then(v as _Initialized));
-
-  @override
-  _Initialized get _value => super._value as _Initialized;
-
-  @override
-  $Res call({
-    Object? controller = freezed,
-    Object? status = freezed,
-    Object? frames = freezed,
-  }) {
-    return _then(_Initialized(
-      controller == freezed
-          ? _value.controller
-          : controller // ignore: cast_nullable_to_non_nullable
-              as VideoPlayerController,
-      status: status == freezed
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as VideoStatus,
-      frames: frames == freezed
-          ? _value.frames
-          : frames // ignore: cast_nullable_to_non_nullable
-              as Frames,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_Initialized extends _Initialized {
-  const _$_Initialized(this.controller,
-      {this.status = const VideoStatus.buffering(),
-      this.frames = const Frames()})
-      : super._();
-
-  @override
-  final VideoPlayerController controller;
-  @JsonKey(defaultValue: const VideoStatus.buffering())
-  @override
-  final VideoStatus status;
-  @JsonKey(defaultValue: const Frames())
-  @override
-  final Frames frames;
-
-  @override
-  String toString() {
-    return 'ScopedVideo.initialized(controller: $controller, status: $status, frames: $frames)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _Initialized &&
-            (identical(other.controller, controller) ||
-                const DeepCollectionEquality()
-                    .equals(other.controller, controller)) &&
-            (identical(other.status, status) ||
-                const DeepCollectionEquality().equals(other.status, status)) &&
-            (identical(other.frames, frames) ||
-                const DeepCollectionEquality().equals(other.frames, frames)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(controller) ^
-      const DeepCollectionEquality().hash(status) ^
-      const DeepCollectionEquality().hash(frames);
-
-  @JsonKey(ignore: true)
-  @override
-  _$InitializedCopyWith<_Initialized> get copyWith =>
-      __$InitializedCopyWithImpl<_Initialized>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            VideoPlayerController controller, VideoStatus status, Frames frames)
-        uninitialized,
-    required TResult Function(
-            VideoPlayerController controller, VideoStatus status, Frames frames)
-        initialized,
-    required TResult Function(VideoPlayerController controller, String? reason,
-            VideoStatus status, Frames frames)
-        error,
-  }) {
-    return initialized(controller, status, frames);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(VideoPlayerController controller, VideoStatus status,
-            Frames frames)?
-        uninitialized,
-    TResult Function(VideoPlayerController controller, VideoStatus status,
-            Frames frames)?
-        initialized,
-    TResult Function(VideoPlayerController controller, String? reason,
-            VideoStatus status, Frames frames)?
-        error,
-    required TResult orElse(),
-  }) {
-    if (initialized != null) {
-      return initialized(controller, status, frames);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Uninitialized value) uninitialized,
-    required TResult Function(_Initialized value) initialized,
-    required TResult Function(_Error value) error,
-  }) {
-    return initialized(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Uninitialized value)? uninitialized,
-    TResult Function(_Initialized value)? initialized,
-    TResult Function(_Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (initialized != null) {
-      return initialized(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Initialized extends ScopedVideo {
-  const factory _Initialized(VideoPlayerController controller,
-      {VideoStatus status, Frames frames}) = _$_Initialized;
-  const _Initialized._() : super._();
-
-  @override
-  VideoPlayerController get controller => throw _privateConstructorUsedError;
-  @override
-  VideoStatus get status => throw _privateConstructorUsedError;
-  @override
-  Frames get frames => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(ignore: true)
-  _$InitializedCopyWith<_Initialized> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$ErrorCopyWith<$Res> implements $ScopedVideoCopyWith<$Res> {
-  factory _$ErrorCopyWith(_Error value, $Res Function(_Error) then) =
-      __$ErrorCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {VideoPlayerController controller,
-      String? reason,
-      VideoStatus status,
-      Frames frames});
-
-  @override
-  $VideoStatusCopyWith<$Res> get status;
-  @override
-  $FramesCopyWith<$Res> get frames;
-}
-
-/// @nodoc
-class __$ErrorCopyWithImpl<$Res> extends _$ScopedVideoCopyWithImpl<$Res>
-    implements _$ErrorCopyWith<$Res> {
-  __$ErrorCopyWithImpl(_Error _value, $Res Function(_Error) _then)
-      : super(_value, (v) => _then(v as _Error));
-
-  @override
-  _Error get _value => super._value as _Error;
-
-  @override
-  $Res call({
-    Object? controller = freezed,
-    Object? reason = freezed,
-    Object? status = freezed,
-    Object? frames = freezed,
-  }) {
-    return _then(_Error(
-      controller == freezed
-          ? _value.controller
-          : controller // ignore: cast_nullable_to_non_nullable
-              as VideoPlayerController,
-      reason: reason == freezed
-          ? _value.reason
-          : reason // ignore: cast_nullable_to_non_nullable
-              as String?,
-      status: status == freezed
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as VideoStatus,
-      frames: frames == freezed
-          ? _value.frames
-          : frames // ignore: cast_nullable_to_non_nullable
-              as Frames,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_Error extends _Error {
-  const _$_Error(this.controller,
-      {this.reason,
-      this.status = const VideoStatus.buffering(),
-      this.frames = const Frames()})
-      : super._();
-
-  @override
-  final VideoPlayerController controller;
-  @override
-  final String? reason;
-  @JsonKey(defaultValue: const VideoStatus.buffering())
-  @override
-  final VideoStatus status;
-  @JsonKey(defaultValue: const Frames())
-  @override
-  final Frames frames;
-
-  @override
-  String toString() {
-    return 'ScopedVideo.error(controller: $controller, reason: $reason, status: $status, frames: $frames)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _Error &&
-            (identical(other.controller, controller) ||
-                const DeepCollectionEquality()
-                    .equals(other.controller, controller)) &&
-            (identical(other.reason, reason) ||
-                const DeepCollectionEquality().equals(other.reason, reason)) &&
-            (identical(other.status, status) ||
-                const DeepCollectionEquality().equals(other.status, status)) &&
-            (identical(other.frames, frames) ||
-                const DeepCollectionEquality().equals(other.frames, frames)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(controller) ^
-      const DeepCollectionEquality().hash(reason) ^
-      const DeepCollectionEquality().hash(status) ^
-      const DeepCollectionEquality().hash(frames);
-
-  @JsonKey(ignore: true)
-  @override
-  _$ErrorCopyWith<_Error> get copyWith =>
-      __$ErrorCopyWithImpl<_Error>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            VideoPlayerController controller, VideoStatus status, Frames frames)
-        uninitialized,
-    required TResult Function(
-            VideoPlayerController controller, VideoStatus status, Frames frames)
-        initialized,
-    required TResult Function(VideoPlayerController controller, String? reason,
-            VideoStatus status, Frames frames)
-        error,
-  }) {
-    return error(controller, reason, status, frames);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(VideoPlayerController controller, VideoStatus status,
-            Frames frames)?
-        uninitialized,
-    TResult Function(VideoPlayerController controller, VideoStatus status,
-            Frames frames)?
-        initialized,
-    TResult Function(VideoPlayerController controller, String? reason,
-            VideoStatus status, Frames frames)?
-        error,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(controller, reason, status, frames);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Uninitialized value) uninitialized,
-    required TResult Function(_Initialized value) initialized,
-    required TResult Function(_Error value) error,
-  }) {
-    return error(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Uninitialized value)? uninitialized,
-    TResult Function(_Initialized value)? initialized,
-    TResult Function(_Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Error extends ScopedVideo {
-  const factory _Error(VideoPlayerController controller,
-      {String? reason, VideoStatus status, Frames frames}) = _$_Error;
-  const _Error._() : super._();
-
-  @override
-  VideoPlayerController get controller => throw _privateConstructorUsedError;
-  String? get reason => throw _privateConstructorUsedError;
-  @override
-  VideoStatus get status => throw _privateConstructorUsedError;
-  @override
-  Frames get frames => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(ignore: true)
-  _$ErrorCopyWith<_Error> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 class _$VideoStatusTearOff {
   const _$VideoStatusTearOff();
+
+  _Initial initial() {
+    return const _Initial();
+  }
 
   _Playing playing() {
     return const _Playing();
@@ -715,6 +234,10 @@ class _$VideoStatusTearOff {
   _Buffering buffering() {
     return const _Buffering();
   }
+
+  _Error error() {
+    return const _Error();
+  }
 }
 
 /// @nodoc
@@ -724,35 +247,43 @@ const $VideoStatus = _$VideoStatusTearOff();
 mixin _$VideoStatus {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() playing,
     required TResult Function() paused,
     required TResult Function() done,
     required TResult Function() buffering,
+    required TResult Function() error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? playing,
     TResult Function()? paused,
     TResult Function()? done,
     TResult Function()? buffering,
+    TResult Function()? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Playing value) playing,
     required TResult Function(_Paused value) paused,
     required TResult Function(_Done value) done,
     required TResult Function(_Buffering value) buffering,
+    required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Playing value)? playing,
     TResult Function(_Paused value)? paused,
     TResult Function(_Done value)? done,
     TResult Function(_Buffering value)? buffering,
+    TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -772,6 +303,106 @@ class _$VideoStatusCopyWithImpl<$Res> implements $VideoStatusCopyWith<$Res> {
   final VideoStatus _value;
   // ignore: unused_field
   final $Res Function(VideoStatus) _then;
+}
+
+/// @nodoc
+abstract class _$InitialCopyWith<$Res> {
+  factory _$InitialCopyWith(_Initial value, $Res Function(_Initial) then) =
+      __$InitialCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$InitialCopyWithImpl<$Res> extends _$VideoStatusCopyWithImpl<$Res>
+    implements _$InitialCopyWith<$Res> {
+  __$InitialCopyWithImpl(_Initial _value, $Res Function(_Initial) _then)
+      : super(_value, (v) => _then(v as _Initial));
+
+  @override
+  _Initial get _value => super._value as _Initial;
+}
+
+/// @nodoc
+
+class _$_Initial extends _Initial {
+  const _$_Initial() : super._();
+
+  @override
+  String toString() {
+    return 'VideoStatus.initial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _Initial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() playing,
+    required TResult Function() paused,
+    required TResult Function() done,
+    required TResult Function() buffering,
+    required TResult Function() error,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? playing,
+    TResult Function()? paused,
+    TResult Function()? done,
+    TResult Function()? buffering,
+    TResult Function()? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Playing value) playing,
+    required TResult Function(_Paused value) paused,
+    required TResult Function(_Done value) done,
+    required TResult Function(_Buffering value) buffering,
+    required TResult Function(_Error value) error,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Playing value)? playing,
+    TResult Function(_Paused value)? paused,
+    TResult Function(_Done value)? done,
+    TResult Function(_Buffering value)? buffering,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Initial extends VideoStatus {
+  const factory _Initial() = _$_Initial;
+  const _Initial._() : super._();
 }
 
 /// @nodoc
@@ -811,10 +442,12 @@ class _$_Playing extends _Playing {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() playing,
     required TResult Function() paused,
     required TResult Function() done,
     required TResult Function() buffering,
+    required TResult Function() error,
   }) {
     return playing();
   }
@@ -822,10 +455,12 @@ class _$_Playing extends _Playing {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? playing,
     TResult Function()? paused,
     TResult Function()? done,
     TResult Function()? buffering,
+    TResult Function()? error,
     required TResult orElse(),
   }) {
     if (playing != null) {
@@ -837,10 +472,12 @@ class _$_Playing extends _Playing {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Playing value) playing,
     required TResult Function(_Paused value) paused,
     required TResult Function(_Done value) done,
     required TResult Function(_Buffering value) buffering,
+    required TResult Function(_Error value) error,
   }) {
     return playing(this);
   }
@@ -848,10 +485,12 @@ class _$_Playing extends _Playing {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Playing value)? playing,
     TResult Function(_Paused value)? paused,
     TResult Function(_Done value)? done,
     TResult Function(_Buffering value)? buffering,
+    TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
     if (playing != null) {
@@ -903,10 +542,12 @@ class _$_Paused extends _Paused {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() playing,
     required TResult Function() paused,
     required TResult Function() done,
     required TResult Function() buffering,
+    required TResult Function() error,
   }) {
     return paused();
   }
@@ -914,10 +555,12 @@ class _$_Paused extends _Paused {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? playing,
     TResult Function()? paused,
     TResult Function()? done,
     TResult Function()? buffering,
+    TResult Function()? error,
     required TResult orElse(),
   }) {
     if (paused != null) {
@@ -929,10 +572,12 @@ class _$_Paused extends _Paused {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Playing value) playing,
     required TResult Function(_Paused value) paused,
     required TResult Function(_Done value) done,
     required TResult Function(_Buffering value) buffering,
+    required TResult Function(_Error value) error,
   }) {
     return paused(this);
   }
@@ -940,10 +585,12 @@ class _$_Paused extends _Paused {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Playing value)? playing,
     TResult Function(_Paused value)? paused,
     TResult Function(_Done value)? done,
     TResult Function(_Buffering value)? buffering,
+    TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
     if (paused != null) {
@@ -995,10 +642,12 @@ class _$_Done extends _Done {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() playing,
     required TResult Function() paused,
     required TResult Function() done,
     required TResult Function() buffering,
+    required TResult Function() error,
   }) {
     return done();
   }
@@ -1006,10 +655,12 @@ class _$_Done extends _Done {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? playing,
     TResult Function()? paused,
     TResult Function()? done,
     TResult Function()? buffering,
+    TResult Function()? error,
     required TResult orElse(),
   }) {
     if (done != null) {
@@ -1021,10 +672,12 @@ class _$_Done extends _Done {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Playing value) playing,
     required TResult Function(_Paused value) paused,
     required TResult Function(_Done value) done,
     required TResult Function(_Buffering value) buffering,
+    required TResult Function(_Error value) error,
   }) {
     return done(this);
   }
@@ -1032,10 +685,12 @@ class _$_Done extends _Done {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Playing value)? playing,
     TResult Function(_Paused value)? paused,
     TResult Function(_Done value)? done,
     TResult Function(_Buffering value)? buffering,
+    TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
     if (done != null) {
@@ -1088,10 +743,12 @@ class _$_Buffering extends _Buffering {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() playing,
     required TResult Function() paused,
     required TResult Function() done,
     required TResult Function() buffering,
+    required TResult Function() error,
   }) {
     return buffering();
   }
@@ -1099,10 +756,12 @@ class _$_Buffering extends _Buffering {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? playing,
     TResult Function()? paused,
     TResult Function()? done,
     TResult Function()? buffering,
+    TResult Function()? error,
     required TResult orElse(),
   }) {
     if (buffering != null) {
@@ -1114,10 +773,12 @@ class _$_Buffering extends _Buffering {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Playing value) playing,
     required TResult Function(_Paused value) paused,
     required TResult Function(_Done value) done,
     required TResult Function(_Buffering value) buffering,
+    required TResult Function(_Error value) error,
   }) {
     return buffering(this);
   }
@@ -1125,10 +786,12 @@ class _$_Buffering extends _Buffering {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Playing value)? playing,
     TResult Function(_Paused value)? paused,
     TResult Function(_Done value)? done,
     TResult Function(_Buffering value)? buffering,
+    TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
     if (buffering != null) {
@@ -1141,6 +804,106 @@ class _$_Buffering extends _Buffering {
 abstract class _Buffering extends VideoStatus {
   const factory _Buffering() = _$_Buffering;
   const _Buffering._() : super._();
+}
+
+/// @nodoc
+abstract class _$ErrorCopyWith<$Res> {
+  factory _$ErrorCopyWith(_Error value, $Res Function(_Error) then) =
+      __$ErrorCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$ErrorCopyWithImpl<$Res> extends _$VideoStatusCopyWithImpl<$Res>
+    implements _$ErrorCopyWith<$Res> {
+  __$ErrorCopyWithImpl(_Error _value, $Res Function(_Error) _then)
+      : super(_value, (v) => _then(v as _Error));
+
+  @override
+  _Error get _value => super._value as _Error;
+}
+
+/// @nodoc
+
+class _$_Error extends _Error {
+  const _$_Error() : super._();
+
+  @override
+  String toString() {
+    return 'VideoStatus.error()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _Error);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() playing,
+    required TResult Function() paused,
+    required TResult Function() done,
+    required TResult Function() buffering,
+    required TResult Function() error,
+  }) {
+    return error();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? playing,
+    TResult Function()? paused,
+    TResult Function()? done,
+    TResult Function()? buffering,
+    TResult Function()? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Playing value) playing,
+    required TResult Function(_Paused value) paused,
+    required TResult Function(_Done value) done,
+    required TResult Function(_Buffering value) buffering,
+    required TResult Function(_Error value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Playing value)? playing,
+    TResult Function(_Paused value)? paused,
+    TResult Function(_Done value)? done,
+    TResult Function(_Buffering value)? buffering,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Error extends VideoStatus {
+  const factory _Error() = _$_Error;
+  const _Error._() : super._();
 }
 
 /// @nodoc

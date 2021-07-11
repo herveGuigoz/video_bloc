@@ -12,6 +12,7 @@ dependencies:
     sdk: flutter
   video_bloc:
     path: ../
+  cached_network_image: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -19,3 +20,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: TikTokIcons
+      fonts:
+        - asset: assets/fonts/TikTokIcons.ttf
